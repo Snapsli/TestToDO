@@ -1,0 +1,18 @@
+<div class="container" *ngIf="task$ | async as task; else loadingOrError">
+  <h1>{{ task.title }}</h1>
+  <p class="description">{{ task.description || 'Описание отсутствует' }}</p>
+  <div class="status">
+    Статус:
+    <span class="task-status" [ngClass]="{'status-completed': task.status === 'completed', 'status-pending': task.status === 'pending'}">
+      {{ task.status === 'completed' ? 'Выполнена' : 'В работе' }}
+    </span>
+  </div>
+  <button (click)="goBack()">Назад к списку</button>
+</div>
+
+<ng-template #loadingOrError>
+  <div class="container">
+    <p>Загрузка задачи или задача не найдена...</p>
+    <button (click)="goBack()">Назад к списку</button>
+  </div>
+</ng-template>
