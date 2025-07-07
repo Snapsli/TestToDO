@@ -49,7 +49,7 @@
               [checked]="task.status === 'completed'"
               (change)="onStatusChange($event, task)"
               (click)="$event.stopPropagation()">
-              {{ task.status === 'completed' ? 'Выполнена' : 'В работе' }}
+              {{ task.status === 'completed' ? 'Выполнена' : 'не выполнена' }}
             </mat-slide-toggle>
             <button mat-flat-button color="primary" (click)="navigateToDetail(task.id, $event)">Подробнее</button>
             <button mat-flat-button color="warn" (click)="deleteTask(task.id, $event)">Удалить</button>
