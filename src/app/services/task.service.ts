@@ -44,4 +44,13 @@ export class TaskService {
     }
     return throwError(() => new Error('Task not found'));
   }
+
+  updateTaskStatus(id: number, status: TaskStatus): Observable<Task> {
+    const task = this.tasks.find(t => t.id === id);
+    if (task) {
+      task.status = status;
+      return of(task);
+    }
+    return throwError(() => new Error('Task not found'));
+  }
 }

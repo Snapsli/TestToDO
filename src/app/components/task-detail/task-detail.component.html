@@ -1,18 +1,32 @@
 <div class="container" *ngIf="task$ | async as task; else loadingOrError">
-  <h1>{{ task.title }}</h1>
-  <p class="description">{{ task.description || 'Описание отсутствует' }}</p>
-  <div class="status">
-    Статус:
-    <span class="task-status" [ngClass]="{'status-completed': task.status === 'completed', 'status-pending': task.status === 'pending'}">
-      {{ task.status === 'completed' ? 'Выполнена' : 'В работе' }}
-    </span>
-  </div>
-  <button (click)="goBack()">Назад к списку</button>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ task.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ task.description || 'Описание отсутствует' }}</p>
+      <div class="status">
+        Статус:
+        <span class="task-status" [ngClass]="{'status-completed': task.status === 'completed', 'status-pending': task.status === 'pending'}">
+          {{ task.status === 'completed' ? 'Выполнена' : 'не выполнена' }}
+        </span>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="goBack()">Назад</button>
+    </mat-card-actions>
+  </mat-card>
 </div>
 
 <ng-template #loadingOrError>
   <div class="container">
-    <p>Загрузка задачи или задача не найдена...</p>
-    <button (click)="goBack()">Назад к списку</button>
+    <mat-card>
+      <mat-card-content>
+        <p>Загрузка задачи или задача не найдена...</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="goBack()">Назад</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </ng-template>

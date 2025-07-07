@@ -11,3 +11,18 @@
 .content {
   padding: 24px;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem; /* ~24px */
+  font-weight: 500;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}

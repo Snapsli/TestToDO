@@ -1,30 +1,61 @@
 <div class="container">
-  <h1>Список задач</h1>
-
-  <div class="form-container">
-    <h2>Добавить новую задачу</h2>
-    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <input type="text" formControlName="title" placeholder="Название задачи*">
-      </div>
-      <div class="form-group">
-        <textarea formControlName="description" placeholder="Описание"></textarea>
-      </div>
-      <button type="submit" [disabled]="taskForm.invalid">Добавить</button>
-    </form>
+  <div class="actions-container">
+    <button mat-raised-button color="primary" (click)="toggleForm()">
+      <mat-icon>{{ isFormVisible ? 'close' : 'add' }}</mat-icon>
+      {{ isFormVisible ? 'Скрыть форму' : 'Новая задача' }}
+    </button>
   </div>
 
-  <div class="task-list">
-    <div *ngFor="let task of tasks$ | async" class="task-item" (click)="navigateToDetail(task.id)">
-      <div class="task-info">
-        <span class="task-title">{{ task.title }}</span>
-        <span class="task-status" [ngClass]="{'status-completed': task.status === 'completed', 'status-pending': task.status === 'pending'}">
-          {{ task.status === 'completed' ? 'Выполнена' : 'В работе' }}
-        </span>
-      </div>
-      <div class="task-actions">
-        <button class="delete-btn" (click)="deleteTask(task.id, $event)">Удалить</button>
-      </div>
-    </div>
-  </div>
+  <mat-card class="form-card" *ngIf="isFormVisible">
+    <mat-card-header>
+      <mat-card-title>Новая задача</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Название задачи</mat-label>
+          <input matInput formControlName="title" placeholder="Что нужно сделать?">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Описание</mat-label>
+          <textarea matInput formControlName="description" placeholder="Подробности..."></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">Сохранить</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="list-card">
+    <mat-card-header>
+      <mat-card-title>Список задач</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Поиск</mat-label>
+        <input matInput [formControl]="searchControl" placeholder="Найти задачу...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-list>
+        <mat-list-item *ngFor="let task of tasks$ | async" class="task-item">
+          <div mat-line class="task-content">
+            <span class="task-title">{{ task.title }}</span>
+            <p *ngIf="task.description" class="task-description">{{ task.description }}</p>
+          </div>
+          <div class="task-actions">
+            <mat-slide-toggle
+              [checked]="task.status === 'completed'"
+              (change)="onStatusChange($event, task)"
+              (click)="$event.stopPropagation()">
+              {{ task.status === 'completed' ? 'Выполнена' : 'В работе' }}
+            </mat-slide-toggle>
+            <button mat-flat-button color="primary" (click)="navigateToDetail(task.id, $event)">Подробнее</button>
+            <button mat-flat-button color="warn" (click)="deleteTask(task.id, $event)">Удалить</button>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </div>

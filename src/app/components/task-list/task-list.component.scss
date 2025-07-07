@@ -1,8 +1,70 @@
-.container {
-  max-width: 800px;
-  margin: 20px auto;
+:host {
+  display: block;
   padding: 20px;
-  font-family: sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.actions-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.form-card, .list-card {
+  width: 100%;
+  max-width: 800px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.search-field {
+  margin-bottom: 20px;
+}
+
+.task-item {
+  height: auto;
+  min-height: 72px;
+  border-bottom: 1px solid #eee;
+
+  .task-content {
+    flex: 1;
+    padding-right: 16px;
+    word-break: break-word;
+  }
+
+  .task-title {
+    font-weight: 500;
+    white-space: normal;
+  }
+
+  .task-description {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 4px;
+    white-space: normal;
+  }
+
+  .task-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+::ng-deep .mat-mdc-list-item-unscoped-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
 }
 
 .form-container {
@@ -43,28 +105,9 @@ button {
   padding-top: 10px;
 }
 
-.task-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f9f9f9;
-  }
-}
-
 .task-info {
   display: flex;
   flex-direction: column;
-}
-
-.task-title {
-  font-weight: bold;
-  font-size: 1.1em;
-  margin-bottom: 5px;
 }
 
 .task-status {

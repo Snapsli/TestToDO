@@ -4,11 +4,12 @@ import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../../material.module';
 
 @Component({
   selector: 'app-task-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MaterialModule],
   templateUrl: './task-detail.component.html',
   styleUrls: ['./task-detail.component.scss']
 })
